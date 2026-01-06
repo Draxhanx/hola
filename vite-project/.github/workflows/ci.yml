@@ -1,15 +1,25 @@
-name : "Sample React Ci Pipleline FOr test / Workflow"
+name: Sample React CI Pipeline for Test / Workflow
 
-on : 
-    push : 
-        branches :
-            - main 
+on:
+  push:
+    branches:
+      - main
 
-jobs : 
-    build-and-test :
-        runs-on : ubuntu-latest
-        steps :
-            - name : "Setup Node js"
-              uses :  actions/setup-node@v6
-              with :
-                  node-version : "21"
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "21"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test -- --watch=false
